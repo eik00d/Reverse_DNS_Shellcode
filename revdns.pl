@@ -2,16 +2,14 @@
 #
 # DNS C&C example
 #   by Alexey Sintsov
-#   Digital Security Research Group
 #   dookie _at_ inbox.ru
-#   a.sintsov _at_ dsecrg.com
+#   alex.sintsov _at_ gmail.com
 #
-#   www.dsecrg.com
-#
+#   Long memory for DSecRG team
 #
 # Special for CONFidence 2011, Krakow
 #
-# This DNS server used for reverse DNS Shellcode (downlaod and exec)  and for C&C bot (VBS script that downloaded by shellcode)
+# This DNS server used for reverse DNS Shellcode (download and exec)  and for C&C bot (VBS script that downloaded by shellcode)
 #
 #  P.S. Sorry - dirty coding and NOT user friendly iface 8)
 #

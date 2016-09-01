@@ -26,9 +26,9 @@
 # Based on previous version: https://erpscan.com/wp-content/uploads/2012/06/dns-for-evil.pdf
 #
 # What's new here?
-#    - Before this shellode was limited in usage because if NO IPv6 address assigned to the interface then it is impossible
-#       to resolve a IPv6 IP by using WinApi (WSANO_DATA error). But if we using reserved IPv6 addresses then we could do
-#       a resolve even if no IPv6 address is assigned. SO shellcode and DNS hadler C&C were changed to do that
+#    - Before this shellcode was limited in usage because if NO IPv6 address assigned to the interface then it was impossible
+#       to resolve a IPv6 IP by using WinApi (WSANO_DATA error). But if we are resolving IPv6 addresses from reserved list then we could do it!
+#       SO shellcode and DNS handler C&C have been changed to address that
 #    - Extended maximum file size for download over reverse DNS, up to 88 Mb
 #
 # By Alexey Sintsov
@@ -40,7 +40,7 @@
 #       can work in XP/2003 if IPv6 installed
 #       (it is not need to be enabled, just installed)      
 #
-#
+# 
 
 require 'msf/core'
 
