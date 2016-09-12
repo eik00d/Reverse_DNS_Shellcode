@@ -270,10 +270,13 @@ main_prog:
     mov al,0BBh
     add rax,rsp
     push rax        ; domain address
-    
-    lea rax,[rsp+040h]
-
+    mov rax,[rsp+040h]
+    add rsp, -256
+    mov rdx, rsp
     call rax
+    mov r15, rsp
+    sub r15, -256
+
     
     int 3
  
