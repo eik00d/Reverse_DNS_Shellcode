@@ -1,6 +1,10 @@
 # Reverse DNS payloads for Remote control
 Reverse DNS payload for Metasploit: Download  Exec x86 shellcode. Also DNS Handler and VBS bot (working over DNS) as PoC included.
 
+# Disclaimer
+
+This project created for testing NextGen security solutions. Not allowed to use in any illegal activities.
+
 ## Components
 
 ### dns_download_exec_svchost.rb
