@@ -14,11 +14,9 @@ DOMAIN - domain you should control (NS).
 EXT - file extension
 
 This payload are using getaddrinfo API function for getting data over DNS (to %temp% dir). This shellcode will work even on boxes without IPv6 assigned (my previos one - https://www.exploit-db.com/exploits/17326/ did not!). 
-For that all resolved IPv6 addresses should be from reserved block. This shellcode uses IPv6 in ranges from ff00:: to ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+In this new version resolved IPv6 addresses will be from reserved block. This shellcode uses IPv6 in ranges from ff00:: to ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
 
-those IPv6 will be resolve even if no IPv6 address assigned to the interface (only linked). First byte should be ff, than second is control byte that tell us
-what block of data we have and flag "last block". All last 14 bytes of IPv6 - data as is (no encoding needed, like in TXT section). For one DNS response we could
- receive up to 17 IP addresses, so for one DNS request we could get 238 bytes of raw data.
+those IPv6 will be resolve even if no IPv6 address assigned to the interface (only linked). First byte should be ff, than second is control byte that tell us what block of data we have and flag "last block". All last 14 bytes of IPv6 - data as is (no encoding needed, like in TXT section). For one DNS response we could receive up to 17 IP addresses, so for one DNS request we could get 238 bytes of raw data.
  
  aaaa.a.dom.ws - first 238 bytes
  baaa.a.dom.ws - second 238 bytes
@@ -33,10 +31,8 @@ what block of data we have and flag "last block". All last 14 bytes of IPv6 - da
  
 ### bot.vbs
  
- PoC of agent on VBS that could use reverse DNS channel for RCE control. This prototype uses nslookup for resolving ipv4 addresses.
- As first action this agent will  try to register on C&C by using AD domain name and user login, after that it will frequently requesting DNS
- for getting commands to execute. If command will be received then result of execution will be sent back in base64 format.
- VBS agent was chosen because we could download it faster over reverse DNS shellocde.
+ PoC of agent on VBS that could use reverse DNS channel for recieveing commands. This prototype uses nslookup for resolving ipv4 addresses.
+ As first action this agent will  try to register on C&C by using AD domain/workgroup name and current login, after that it will frequently requesting DNS  for getting commands to execute. If command will be received then result of execution will be sent back in base64 format. 
  
 #### Commands
     exit                   - kill process with agent (wscript)
@@ -71,9 +67,9 @@ Original(and old) preso about this project is here: [https://erpscan.com/wp-cont
 
     @EGGs = ("bot.vbs","drop.exe")
     
-So now it "stores" two files in a.zlo.ws and in b.zlo.ws
+So now it "stores" two drop files in a.zlo.ws and in b.zlo.ws
 
-3) Configure
+3) Configure revdns.pl 
   
         $DOMAIN = "zlo.ws";               
         $IPA = "11.11.11.11"; 
