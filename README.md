@@ -46,7 +46,8 @@ those IPv6 will be resolve even if no IPv6 address assigned to the interface (on
                              Download speed here ~ 1 Kb/Sec
                              example: download b drop.exe
                              (will be converted into aaaa.b.dom.ws, baaa.b.dom.ws)
-    [any other command]    - will run cmd /c [any other command]
+    [any other command]    - will run cmd /c [any other command] 
+                             Result of an execution (STDOUT/STDERR) will be returned to the C&C and stored in log file
 
     
 This is juts PoC and prototype so we do not have here autorun and hiding features!
