@@ -13,7 +13,7 @@ DOMAIN - domain you should control (NS).
 
 EXT - file extension
 
-This payload are using getaddrinfo API function for getting data over DNS (to %temp% dir). This shellcode will work even on boxes without IPv6 assigned (my previos one - https://www.exploit-db.com/exploits/17326/ did not!). 
+This payload are using getaddrinfo API function for getting data over DNS (to %temp% dir). This shellcode will work even on boxes without IPv6 assigned (my previos one - https://www.exploit-db.com/exploits/17326/ required IPv6 address asssigned, so in this, new version we do not need it!). 
 In this new version resolved IPv6 addresses will be from reserved block. This shellcode uses IPv6 in ranges from ff00:: to ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
 
 those IPv6 will be resolve even if no IPv6 address assigned to the interface (only linked). First byte should be ff, than second is control byte that tell us what block of data we have and flag "last block". All last 14 bytes of IPv6 - data as is (no encoding needed, like in TXT section). For one DNS response we could receive up to 17 IP addresses, so for one DNS request we could get 238 bytes of raw data.
