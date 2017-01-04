@@ -35,9 +35,9 @@
 #     alex.sintsov [sobachka] gmail.com
 #     dookie [sobachka] inbox.ru
 #
-# P.S. Works with  Vista/7/2008 
+# P.S. Works with  Windows 7/8/10
 #       do not work in XP/2003 because there are no IPv6 by default.
-#       can work in XP/2003 if IPv6 installed
+#       but can work in XP/2003 if IPv6 installed
 #       (it is not need to be enabled, just installed)      
 #
 # 
