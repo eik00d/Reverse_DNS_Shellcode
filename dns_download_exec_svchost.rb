@@ -3,11 +3,11 @@
 #################################################################
 # 
 # Features:
-# * Windows 7 tested
+# * Windows 7/8.1/10 tested
 # * UAC without work (svchost.exe makes requests via getaddrinfo)
 # * Firewall/Router/Nat/Proxy bypass reverse connection (like dnscat do, but without sockets and stable!)
 # * No TXT DNS section used, so it is faster then TXT version (when we are talking about downloading binaries)
-# * NO open SOCKETs from exploited process
+# * NO open SOCKETs from exploited process (svchost doing all DNS request FOR YOU!, so Network/AV bypases)
 #
 #
 # Download speed:                    ~ 4 kb/sec
